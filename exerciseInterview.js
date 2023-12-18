@@ -11,22 +11,81 @@
 ## output => “abbabbabb”
 */
 
-function repeater(str) {
-    const regex = /(\d+)\[(.*?)\]/g
-    const match = str.match(regex)
-    for (const i of match) {
-        const number = i.match(/(\d+)/g)
-        const string = i.match(/[a-z]+/g)
-        if (Object.keys(number).length > 1) {
-            const inner = ""
-            for (let j = Object.keys(number).length; j >= 0; j--) {
-                inner += string[j].repeat(number[j])
-                console.log(inner)
-            }
+function generateOutput(inputStr) {
+
+    const [num, content] = inputStr.split("[");
+    const contentWithoutBracket = content.slice(0, -1);
+
+    console.log(contentWithoutBracket);
+    const outputStr = contentWithoutBracket.repeat(num);
+
+    return outputStr;
+}
+
+function generateOutput(inputStr) {
+    const segments = inputStr.split("]");
+
+    // Initialize an empty string to store the result
+    let outputStr = "";
+
+    // Process each segment
+    segments.forEach(segment => {
+        // Find the last occurrence of '[' to get the content and multiplier
+        const openBracketIndex = segment.lastIndexOf("[");
+        if (openBracketIndex !== -1) {
+            const multiplier = segment.substring(0, openBracketIndex)
+            //const multiplier = parseInt(segment.substring(openBracketIndex + 1), 10) || 1;
+            const content = segment.substring(openBracketIndex + 1);
+
+            // Append the repeated content to the result string
+            outputStr += content.repeat(multiplier);
+        } else {
+            // If no '[' is found, append the segment as is
+            outputStr += segment;
         }
-        else {
-            //console.log(i)
+    });
+
+    return outputStr;
+}
+
+function generateOutput(inputStr) {
+    // Initialize a stack to keep track of characters and multipliers
+    const stack = [];
+
+    for (let char of inputStr) {
+        if (char === ']') {
+            // Pop characters until '[' is encountered
+            let content = '';
+            let multiplier = 0;
+            while (stack.length > 0 && stack[stack.length - 1] !== '[') {
+                content = stack.pop() + content;
+            }
+            stack.pop(); // Remove '[' from the stack
+
+            // Pop multipliers if present
+            while (stack.length > 0 && !isNaN(parseInt(stack[stack.length - 1]))) {
+                multiplier = multiplier * 10 + parseInt(stack.pop());
+            }
+            multiplier = multiplier || 1;
+
+            // Repeat the content and push it back to the stack
+            stack.push(content.repeat(multiplier));
+        } else {
+            // Push other characters to the stack
+            stack.push(char);
         }
     }
+
+    // Join the characters in the stack to get the final output
+    const outputStr = stack.join('');
+
+    return outputStr;
 }
-repeater("3[abs]2[er5[tr]]4[as]")
+
+// Example usage
+const inputStrQ3 = "3[a2[b]]";
+const interimOutputStrQ3 = generateOutput(inputStrQ3);
+console.log(interimOutputStrQ3);  // Interim Output: "3[abb]"
+
+const finalOutputStrQ3 = generateOutput(interimOutputStrQ3);
+console.log(finalOutputStrQ3);  // Output: "abbabbabb"
