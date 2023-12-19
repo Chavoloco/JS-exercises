@@ -81,11 +81,3 @@ function generateOutput(inputStr) {
 
     return outputStr;
 }
-
-// Example usage
-const inputStrQ3 = "3[a2[b]]";
-const interimOutputStrQ3 = generateOutput(inputStrQ3);
-console.log(interimOutputStrQ3);  // Interim Output: "3[abb]"
-
-const finalOutputStrQ3 = generateOutput(interimOutputStrQ3);
-console.log(finalOutputStrQ3);  // Output: "abbabbabb"
