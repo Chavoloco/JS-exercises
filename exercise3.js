@@ -1,6 +1,6 @@
 function isAnagram(str1, str2) {
     const arr1 = str1.toLowerCase().replaceAll(" ","").split("").sort().join("")
-    const arr2 = str2.toLowerCase().replaceAll(" ","").replace("‘","").replace("’", "").split("").sort().join("")
+    const arr2 = str2.toLowerCase().replaceAll(" ","").split("").sort().join("")
 
     if (arr1.lenght !== arr2.lenght) {
         return false

@@ -11,6 +11,23 @@
 ## output => “abbabbabb”
 */
 
+function processString(input) {
+    const pattern = /(\d+)\[([a-z]+)\]/g;
+  
+    const output = input.replace(pattern, (match, count, content) => {
+        return content.repeat(Number(count));
+    });
+    if (output.includes("[") || output.includes("]")) {
+       return processString(output)
+    }
+
+    return output;
+  }
+
+  console.log(processString("3[asdf]")); 
+  console.log(processString("3[a]4[b]"));
+  console.log(processString("3[a2[b]]"));  
+
 function generateOutput(inputStr) {
 
     const [num, content] = inputStr.split("[");

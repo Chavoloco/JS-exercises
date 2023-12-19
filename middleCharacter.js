@@ -6,12 +6,13 @@ getMiddle("testing") should return "t"
 getMiddle("middle") should return "dd"
 getMiddle("A") should return "A"*/
 
-function splitString(str) {
+function getMiddle(str) {
     const chars = str.split("")
-    console.log(chars[(str.length / 2) - 1])
         if (str.length % 2 === 0) {
             return chars[(str.length / 2) - 1] + chars[str.length / 2]
         }else {
             return chars[Math.floor(str.length / 2)]
         }
 }
+
+console.log(getMiddle("middle"));

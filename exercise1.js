@@ -2,14 +2,15 @@
 
 function numberConverter(num) {
     const str = String(num)
-    const arr = str.split(/(w*)/)
-    for (let i = 0; i < arr.length; i++) {
+    const arr = str.split("")
+    /*for (let i = 0; i < arr.length; i++) {
         const e = arr[i];
         if (e.length === 0) {
             arr[i] = "+"
         }
     }
-    const result = String(arr).replaceAll(",","")
+    const result = String(arr).replaceAll(",","")*/
+    const result = arr.join("+")
     console.log(result);
 }
 
